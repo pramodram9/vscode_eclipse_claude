@@ -1,0 +1,11 @@
+ID,title,description,status,createdAt,createdBy,modifiedAt,modifiedBy
+e1000001-0000-0000-0000-000000000001,Laptop Setup,Configure development laptop with required tools and software,NEW,2024-01-10T08:00:00Z,alice@example.com,2024-01-10T08:00:00Z,alice@example.com
+e1000001-0000-0000-0000-000000000002,Database Migration,Migrate legacy database tables to new schema,IN_PROGRESS,2024-01-12T09:30:00Z,bob@example.com,2024-01-15T14:00:00Z,bob@example.com
+e1000001-0000-0000-0000-000000000003,UI Redesign,Redesign the main dashboard with new Fiori guidelines,DONE,2024-01-08T10:00:00Z,carol@example.com,2024-01-20T16:00:00Z,carol@example.com
+e1000001-0000-0000-0000-000000000004,API Integration,Integrate payment gateway REST API into checkout flow,IN_PROGRESS,2024-01-14T11:00:00Z,alice@example.com,2024-01-16T09:00:00Z,alice@example.com
+e1000001-0000-0000-0000-000000000005,Security Audit,Perform quarterly security audit on all microservices,NEW,2024-01-18T08:30:00Z,dave@example.com,2024-01-18T08:30:00Z,dave@example.com
+e1000001-0000-0000-0000-000000000006,Performance Tuning,Optimize slow SQL queries in reporting module,DONE,2024-01-05T13:00:00Z,bob@example.com,2024-01-22T17:00:00Z,bob@example.com
+e1000001-0000-0000-0000-000000000007,User Training,Conduct user training sessions for new ERP module,NEW,2024-01-20T09:00:00Z,carol@example.com,2024-01-20T09:00:00Z,carol@example.com
+e1000001-0000-0000-0000-000000000008,Bug Fix - Login,Fix intermittent login timeout issue reported by users,DONE,2024-01-11T14:00:00Z,dave@example.com,2024-01-13T10:00:00Z,dave@example.com
+e1000001-0000-0000-0000-000000000009,Cloud Deployment,Deploy application to SAP BTP Cloud Foundry environment,IN_PROGRESS,2024-01-16T10:00:00Z,alice@example.com,2024-01-17T12:00:00Z,alice@example.com
+e1000001-0000-0000-0000-000000000010,Documentation Update,Update technical documentation for all public APIs,NEW,2024-01-22T08:00:00Z,bob@example.com,2024-01-22T08:00:00Z,bob@example.com
