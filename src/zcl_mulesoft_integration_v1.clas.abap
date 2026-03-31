@@ -111,7 +111,7 @@ CLASS zcl_mulesoft_integration_v1 IMPLEMENTATION.
     ev_success = abap_false.
 
     " Build a minimal JSON request body containing the Sales Order key
-    lv_request = |{"salesOrder":"{ iv_sales_order }"}|.
+    lv_request = | { "salesOrder":"{ iv_sales_order }" } |
 
     " Create HTTP client for the given URL
     cl_http_client=>create_by_url(
