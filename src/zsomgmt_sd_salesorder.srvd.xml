@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SRVD" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SRVD>
+    <SRVDNAME>ZSOMGMT_SD_SALESORDER</SRVDNAME>
+    <DDLANGUAGE>E</DDLANGUAGE>
+    <DDTEXT>Sales Order Management Service</DDTEXT>
+   </SRVD>
+  </asx:values>
+ </asx:abap>
+</abapGit>
