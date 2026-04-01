@@ -42,8 +42,7 @@ define behavior for ZSOMGMT_I_SalesOrder alias SalesOrder
     CreatedBy,
     CreatedAt,
     LastChangedBy,
-    LastChangedAt,
-    OverallStatusCriticality; -- computed field
+    LastChangedAt;
 
   field ( mandatory )
     CustomerId,
@@ -130,8 +129,7 @@ define behavior for ZSOMGMT_I_SalesOrderItem alias SalesOrderItem
   /* ── Field controls ──────────────────────────────────────────── */
   field ( readonly )
     SalesOrderId,             -- inherited from parent
-    NetAmount,                -- computed by determination
-    ItemStatusCriticality;    -- computed field
+    NetAmount;                -- computed by determination
 
   field ( mandatory )
     ProductId,

@@ -183,16 +183,14 @@
      <ADMINFIELD>0</ADMINFIELD>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
-    <!-- RAP Draft administration field -->
+    <!-- RAP Draft administration fields (standard include) -->
     <DD03P>
      <TABNAME>ZSOMGMT_D_SO_D_H</TABNAME>
-     <FIELDNAME>DRAFTENTITYOPERATIONCODE</FIELDNAME>
+     <FIELDNAME>.INCLUDE</FIELDNAME>
      <FIELDNO>0017</FIELDNO>
-     <DATATYPE>CHAR</DATATYPE>
-     <LENG>000001</LENG>
-     <DDTEXT>Draft Operation Code (I=Insert U=Update)</DDTEXT>
+     <ROLLNAME>SYCH_BDL_DRAFT_ADMIN_INC</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
-     <COMPTYPE> </COMPTYPE>
+     <COMPTYPE>S</COMPTYPE>
     </DD03P>
    </DD03P_TABLE>
   </asx:values>
