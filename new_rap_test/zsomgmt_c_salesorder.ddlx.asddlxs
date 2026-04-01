@@ -1,0 +1,152 @@
+/*
+ * Metadata Extension — ZSOMGMT_C_SalesOrder
+ * @Metadata.layer: #CORE
+ *
+ * Defines all UI annotations for the Fiori Elements List Report + Object Page.
+ * Kept separate from the projection CDS view to follow VDM best practices
+ * (CDS = data model, DDLX = presentation layer).
+ *
+ * Fiori Elements floorplan: List Report + Object Page (OData V4)
+ *
+ * Object Page sections (facets):
+ *   10 — General Information   (identification fields)
+ *   20 — Financial Summary      (fieldGroup 'FinancialSummary')
+ *   30 — Line Items             (lineItem reference to _Item)
+ *   40 — Administrative Data    (fieldGroup 'AdminData')
+ */
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+  typeName:       'Sales Order',
+  typeNamePlural: 'Sales Orders',
+  title:       { type: #FIELD, value: 'SalesOrderId' },
+  description: { type: #FIELD, value: 'Description'  }
+}
+
+@UI.presentationVariant: [{
+  sortOrder: [{ by: 'OrderDate', direction: #DESC }],
+  visualizations: [{ type: #AS_LINEITEM }]
+}]
+
+annotate view ZSOMGMT_C_SalesOrder with
+{
+  /* ── List Report: Object Page facet definitions ──────────────── */
+  @UI.facet: [
+    {
+      id:       'GeneralInfo',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      label:    'General Information',
+      position: 10
+    },
+    {
+      id:              'FinancialSummary',
+      purpose:         #STANDARD,
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'FinancialSummary',
+      label:           'Financial Summary',
+      position:        20
+    },
+    {
+      id:            'LineItems',
+      purpose:       #STANDARD,
+      type:          #LINEITEM_REFERENCE,
+      targetElement: '_Item',
+      label:         'Line Items',
+      position:      30
+    },
+    {
+      id:              'AdminData',
+      purpose:         #STANDARD,
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'AdminData',
+      label:           'Administrative Data',
+      position:        40
+    }
+  ]
+
+  /* ── SalesOrderId ────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 10, label: 'Sales Order' }]
+  @UI.selectionField:[{ position: 10 }]
+  @UI.identification:[{ position: 10 }]
+  SalesOrderId;
+
+  /* ── Description ─────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 20 }]
+  @UI.identification:[{ position: 20 }]
+  Description;
+
+  /* ── CustomerId ──────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 30, label: 'Customer ID' }]
+  @UI.selectionField:[{ position: 20 }]
+  @UI.identification:[{ position: 30 }]
+  CustomerId;
+
+  /* ── CustomerName ────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 40, label: 'Customer Name' }]
+  @UI.identification:[{ position: 40 }]
+  CustomerName;
+
+  /* ── OrderDate ───────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 50, label: 'Order Date' }]
+  @UI.selectionField:[{ position: 30 }]
+  @UI.identification:[{ position: 50 }]
+  OrderDate;
+
+  /* ── DeliveryDate ────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 60, label: 'Delivery Date' }]
+  @UI.identification:[{ position: 60 }]
+  DeliveryDate;
+
+  /* ── OverallStatus (with criticality colouring) ──────────────── */
+  @UI.lineItem: [{
+    position:    70,
+    label:       'Status',
+    criticality: 'OverallStatusCriticality',
+    criticalityRepresentation: #WITH_ICON
+  },
+  { type: #FOR_ACTION, dataAction: 'submitForApproval', label: 'Submit',  position: 200 },
+  { type: #FOR_ACTION, dataAction: 'approveOrder',      label: 'Approve', position: 210 },
+  { type: #FOR_ACTION, dataAction: 'rejectOrder',       label: 'Reject',  position: 220 }]
+  @UI.selectionField:[{ position: 40 }]
+  @UI.identification:[{
+    position:    70,
+    criticality: 'OverallStatusCriticality',
+    criticalityRepresentation: #WITH_ICON
+  }]
+  @UI.dataPoint:     { title: 'Status', criticality: 'OverallStatusCriticality' }
+  OverallStatus;
+
+  /* ── GrossAmount ─────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 80, label: 'Gross Amount' }]
+  @UI.fieldGroup:    [{ qualifier: 'FinancialSummary', position: 10, label: 'Gross Amount' }]
+  @UI.dataPoint:     { title: 'Gross Amount' }
+  GrossAmount;
+
+  /* ── NetAmount ───────────────────────────────────────────────── */
+  @UI.lineItem:   [{ position: 90, label: 'Net Amount' }]
+  @UI.fieldGroup: [{ qualifier: 'FinancialSummary', position: 20, label: 'Net Amount' }]
+  @UI.dataPoint:  { title: 'Net Amount' }
+  NetAmount;
+
+  /* ── TaxAmount ───────────────────────────────────────────────── */
+  @UI.fieldGroup: [{ qualifier: 'FinancialSummary', position: 30, label: 'Tax Amount (10%)' }]
+  TaxAmount;
+
+  /* ── Currency ────────────────────────────────────────────────── */
+  @UI.identification: [{ position: 80 }]
+  Currency;
+
+  /* ── Administrative Data fieldGroup ─────────────────────────── */
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 10, label: 'Created By' }]
+  CreatedBy;
+
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 20, label: 'Created At' }]
+  CreatedAt;
+
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 30, label: 'Last Changed By' }]
+  LastChangedBy;
+
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 40, label: 'Last Changed At' }]
+  LastChangedAt;
+}

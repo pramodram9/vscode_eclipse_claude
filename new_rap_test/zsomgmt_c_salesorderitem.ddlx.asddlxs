@@ -1,0 +1,62 @@
+/*
+ * Metadata Extension — ZSOMGMT_C_SalesOrderItem
+ * @Metadata.layer: #CORE
+ *
+ * UI annotations for the Sales Order Item sub-page (embedded table on
+ * the Object Page "Line Items" facet and the item detail sub-page).
+ *
+ * Fiori Elements renders the items as an inline editable table within
+ * the Object Page when in edit (draft) mode.
+ */
+@Metadata.layer: #CORE
+
+annotate view ZSOMGMT_C_SalesOrderItem with
+{
+  /* ── ItemNumber ───────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 10, label: 'Item' }]
+  @UI.identification:[{ position: 10 }]
+  ItemNumber;
+
+  /* ── ProductId ────────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 20, label: 'Product' }]
+  @UI.identification:[{ position: 20 }]
+  ProductId;
+
+  /* ── ProductDescription ───────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 30, label: 'Description' }]
+  @UI.identification:[{ position: 30 }]
+  ProductDescription;
+
+  /* ── Quantity ─────────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 40, label: 'Qty' }]
+  @UI.identification:[{ position: 40 }]
+  Quantity;
+
+  /* ── QuantityUnit ─────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 50, label: 'UoM' }]
+  @UI.identification:[{ position: 50 }]
+  QuantityUnit;
+
+  /* ── UnitPrice ────────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 60, label: 'Unit Price' }]
+  @UI.identification:[{ position: 60 }]
+  UnitPrice;
+
+  /* ── NetAmount (read-only, computed) ──────────────────────────── */
+  @UI.lineItem:      [{ position: 70, label: 'Net Amount' }]
+  @UI.identification:[{ position: 70 }]
+  NetAmount;
+
+  /* ── ItemStatus (with criticality colouring) ──────────────────── */
+  @UI.lineItem: [{
+    position:    80,
+    label:       'Status',
+    criticality: 'ItemStatusCriticality',
+    criticalityRepresentation: #WITH_ICON
+  }]
+  @UI.identification:[{
+    position:    80,
+    criticality: 'ItemStatusCriticality'
+  }]
+  ItemStatus;
+}
