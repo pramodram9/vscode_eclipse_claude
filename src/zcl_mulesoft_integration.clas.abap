@@ -11,6 +11,4 @@ ENDCLASS.
 
 
 CLASS zcl_mulesoft_integration IMPLEMENTATION.
-
-"edit1
 ENDCLASS.

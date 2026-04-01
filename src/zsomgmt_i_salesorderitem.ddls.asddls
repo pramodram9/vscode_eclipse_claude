@@ -28,10 +28,8 @@ define view entity ZSOMGMT_I_SalesOrderItem
       @Semantics.quantity.unitOfMeasure: 'QuantityUnit'
       quantity                                   as Quantity,
 
-      @Semantics.unitOfMeasure: true
       uom                                        as QuantityUnit,
 
-      @Semantics.currencyCode: true
       currency                                   as Currency,
 
       @Semantics.amount.currencyCode: 'Currency'

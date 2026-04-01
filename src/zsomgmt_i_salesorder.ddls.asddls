@@ -38,7 +38,6 @@ define root view entity ZSOMGMT_I_SalesOrder
         else          0   -- neutral / grey
       end                                        as OverallStatusCriticality,
 
-      @Semantics.currencyCode: true
       currency                                   as Currency,
 
       @Semantics.amount.currencyCode: 'Currency'

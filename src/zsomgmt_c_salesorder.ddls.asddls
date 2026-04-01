@@ -25,7 +25,7 @@ define root view entity ZSOMGMT_C_SalesOrder
       /* Customer value help — resolves CustomerName automatically */
       @Consumption.valueHelpDefinition: [{
         entity: {
-          name:    'I_BusinessPartner',
+//          name:    'I_BusinessPartner',
           element: 'BusinessPartner'
         },
         additionalBinding: [{

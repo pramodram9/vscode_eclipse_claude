@@ -6,7 +6,7 @@
  * strict ( 2) — strict mode.
  *
  * Only operations, actions, and associations that are explicitly declared
- * with `use` are visible to OData consumers and Fiori Elements apps.
+ * with ````use```` are visible to OData consumers and Fiori Elements apps.
  * All others remain internal to the BO interface layer.
  */
 projection;

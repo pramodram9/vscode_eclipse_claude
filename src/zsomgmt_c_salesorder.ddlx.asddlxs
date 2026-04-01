@@ -18,9 +18,9 @@
 
 @UI.headerInfo: {
   typeName:       'Sales Order',
-  typeNamePlural: 'Sales Orders',
-  title:       { type: #FIELD, value: 'SalesOrderId' },
-  description: { type: #FIELD, value: 'Description'  }
+  typeNamePlural: 'Sales Orders'
+//  title:       { type: #FIELD, value: 'SalesOrderId' },
+//  description: { type: #FIELD, value: 'Description'  }
 }
 
 @UI.presentationVariant: [{

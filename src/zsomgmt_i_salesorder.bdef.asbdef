@@ -34,6 +34,7 @@ define behavior for ZSOMGMT_I_SalesOrder alias SalesOrder
   /* ── Field controls ──────────────────────────────────────────── */
   field ( readonly )
     SalesOrderId,             // set by determination on CREATE
+    OverallStatusCriticality,
     OverallStatus,            // set by workflow actions only
     GrossAmount,              // computed by determination
     NetAmount,                // computed by determination
@@ -69,9 +70,9 @@ define behavior for ZSOMGMT_I_SalesOrder alias SalesOrder
   }
 
   // ── Business Actions ──────────────────────────────────────────
-  action ( instances ) submitForApproval result [1] $self;
-  action ( instances ) approveOrder      result [1] $self;
-  action ( instances ) rejectOrder
+  action ( features:instance ) submitForApproval result [1] $self;
+  action ( features:instance ) approveOrder      result [1] $self;
+  action ( features:instance ) rejectOrder
     parameter ZSOMGMT_A_RejectParam
     result    [1] $self;
 
@@ -143,7 +144,7 @@ define behavior for ZSOMGMT_I_SalesOrderItem alias SalesOrderItem
 
   // ── Determination: calculate item net amount ──────────────────
   determination calculateItemNetAmount
-    on modify { create; update ( field Quantity, field UnitPrice ); }
+    on modify { create; update; field Quantity; field UnitPrice; }
 
   // ── Validations ───────────────────────────────────────────────
   validation validateQuantity

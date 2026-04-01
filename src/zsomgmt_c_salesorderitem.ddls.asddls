@@ -15,7 +15,7 @@ define view entity ZSOMGMT_C_SalesOrderItem
       /* Product value help */
       @Consumption.valueHelpDefinition: [{
         entity: {
-          name:    'I_Product',
+//          name:    'I_Product',
           element: 'Product'
         },
         additionalBinding: [{
