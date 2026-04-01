@@ -6,6 +6,7 @@
     <DDLNAME>ZSOMGMT_I_SALESORDERITEM</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
     <DDTEXT>Sales Order Item - Interface (Child BO) View</DDTEXT>
+    <SOURCE_TYPE>P</SOURCE_TYPE>
    </DDLS>
   </asx:values>
  </asx:abap>

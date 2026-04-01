@@ -6,6 +6,7 @@
     <DDLNAME>ZSOMGMT_A_REJECTPARAM</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
     <DDTEXT>Reject Order - Action Parameter Entity</DDTEXT>
+    <SOURCE_TYPE>P</SOURCE_TYPE>
    </DDLS>
   </asx:values>
  </asx:abap>

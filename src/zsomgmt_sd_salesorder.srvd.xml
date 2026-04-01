@@ -3,9 +3,16 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <SRVD>
-    <SRVDNAME>ZSOMGMT_SD_SALESORDER</SRVDNAME>
-    <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Sales Order Service Definition</DDTEXT>
+    <NAME>ZSOMGMT_SD_SALESORDER</NAME>
+    <TYPE>SRVD/SRV</TYPE>
+    <DESCRIPTION>Sales Order Management Service</DESCRIPTION>
+    <LANGUAGE>EN</LANGUAGE>
+    <MASTER_LANGUAGE>EN</MASTER_LANGUAGE>
+    <SOURCE_URI>./zsomgmt_sd_salesorder/source/main</SOURCE_URI>
+    <SOURCE_TYPE>ABAP_SOURCE</SOURCE_TYPE>
+    <SOURCE_ORIGIN_DESCRIPTION>ABAP Development Tools</SOURCE_ORIGIN_DESCRIPTION>
+    <SRVD_SOURCE_TYPE>S</SRVD_SOURCE_TYPE>
+    <SRVD_SOURCE_TYPE_DESC>Definition</SRVD_SOURCE_TYPE_DESC>
    </SRVD>
   </asx:values>
  </asx:abap>
