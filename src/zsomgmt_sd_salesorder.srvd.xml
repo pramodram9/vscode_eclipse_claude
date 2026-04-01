@@ -5,7 +5,7 @@
    <SRVD>
     <SRVDNAME>ZSOMGMT_SD_SALESORDER</SRVDNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Sales Order Management Service</DDTEXT>
+    <DDTEXT>Sales Order Service</DDTEXT>
    </SRVD>
   </asx:values>
  </asx:abap>
