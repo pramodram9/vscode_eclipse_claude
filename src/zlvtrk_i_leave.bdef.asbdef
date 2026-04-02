@@ -29,6 +29,7 @@ define behavior for ZLVTRK_I_Leave alias Leave
   lock master total etag LastChangedAt
   authorization master ( global )
   etag master LastChangedAt
+  early numbering
 {
   /* ── Field controls ──────────────────────────────────────────── */
   field ( readonly )
@@ -55,11 +56,6 @@ define behavior for ZLVTRK_I_Leave alias Leave
   draft action Discard;
   draft action Resume;
   draft determine action Prepare;
-
-  /* ── Early-numbering determination: fires on first draft create ─ */
-  // Populates LeaveId immediately so Fiori navigates directly to
-  // the Object Page without showing the 'New Object' popup.
-  determination setLeaveId       on modify { create; }
 
   /* ── Default-value determination: sets Status = 'N' on create ── */
   determination setInitialStatus on modify { create; }

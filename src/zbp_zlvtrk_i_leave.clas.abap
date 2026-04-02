@@ -13,7 +13,7 @@
 "! are auto-populated via @Semantics annotations in ZLVTRK_I_Leave.
 "!
 "! Implemented in CCIMP (locals_imp):
-"!   lhc_leave~set_leave_id          : determination — generate LV* sequential key
+"!   lhc_leave~earlynumbering_create : FOR NUMBERING — assigns LV* key before buffer
 "!   lhc_leave~set_initial_status    : determination — default Status = 'N'
 "!
 "! Planned (future scope):
