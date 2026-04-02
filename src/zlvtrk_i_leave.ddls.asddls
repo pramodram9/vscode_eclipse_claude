@@ -26,7 +26,7 @@ define root view entity ZLVTRK_I_Leave
   key leave_id                                       as LeaveId,
 
       employee_name                                  as EmployeeName,
-      leave_type                                     as LeaveType,
+      leave_type                                     as LeaveCategory,
       start_date                                     as StartDate,
       end_date                                       as EndDate,
       num_days                                       as NumDays,

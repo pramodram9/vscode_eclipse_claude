@@ -22,7 +22,7 @@ define root view entity ZLVTRK_C_Leave
       @Search.defaultSearchElement: true
       EmployeeName,
 
-      LeaveType,
+      LeaveCategory,
       StartDate,
       EndDate,
       NumDays,

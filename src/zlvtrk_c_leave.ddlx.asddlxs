@@ -65,12 +65,12 @@ annotate view ZLVTRK_C_Leave with
   @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 10, label: 'Employee Name' }]
   EmployeeName;
 
-  /* ── LeaveType ───────────────────────────────────────────────── */
+  /* ── LeaveCategory ──────────────────────────────────────────────*/
   @UI.lineItem:      [{ position: 30, label: 'Leave Type' }]
   @UI.selectionField:[{ position: 20 }]
   @UI.identification:[{ position: 30 }]
   @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 20, label: 'Leave Type' }]
-  LeaveType;
+  LeaveCategory;
 
   /* ── StartDate ───────────────────────────────────────────────── */
   @UI.lineItem:      [{ position: 40, label: 'Start Date' }]
