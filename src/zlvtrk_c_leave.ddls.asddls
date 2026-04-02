@@ -1,6 +1,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Leave Tracker - Consumption (Projection) View'
 @Metadata.allowExtensions: true
+@ObjectModel.semanticKey: ['LeaveId']
 /*
  * Consumption (projection) CDS view for Leave Tracker.
  * This is the entity exposed via the service definition and consumed

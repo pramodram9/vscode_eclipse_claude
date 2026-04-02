@@ -5,6 +5,7 @@
   sizeCategory:   #S,
   dataClass:      #TRANSACTIONAL
 }
+@ObjectModel.semanticKey: ['LeaveId']
 /*
  * Root interface CDS view entity for the Leave Tracker BO.
  * This is the BO layer — never exposed directly to consumers.

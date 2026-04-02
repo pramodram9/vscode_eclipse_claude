@@ -56,6 +56,14 @@ define behavior for ZLVTRK_I_Leave alias Leave
   draft action Resume;
   draft determine action Prepare;
 
+  /* ── Early-numbering determination: fires on first draft create ─ */
+  // Populates LeaveId immediately so Fiori navigates directly to
+  // the Object Page without showing the 'New Object' popup.
+  determination setLeaveId       on modify { create; }
+
+  /* ── Default-value determination: sets Status = 'N' on create ── */
+  determination setInitialStatus on modify { create; }
+
   /* ── Field-to-DB column mapping ──────────────────────────────── */
   mapping for zlvtrk_d_leave corresponding
   {
