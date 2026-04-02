@@ -1,0 +1,127 @@
+/*
+ * Metadata Extension — ZLVTRK_C_Leave
+ * @Metadata.layer: #CORE
+ *
+ * Defines all @UI annotations for Fiori Elements List Report + Object Page.
+ * Kept separate from the projection CDS view (VDM best practice:
+ * CDS = data model, DDLX = presentation layer).
+ *
+ * Fiori Elements floorplan: List Report + Object Page (OData V4)
+ *
+ * Object Page sections (facets):
+ *   10 — General Information   (fieldGroup 'GeneralInfo')
+ *   20 — Administrative Data   (fieldGroup 'AdminData', all read-only)
+ *
+ * Status criticality mapping (computed in ZLVTRK_I_Leave):
+ *   N (New)      → 0 = Grey   (neutral)
+ *   A (Approved) → 3 = Green  (positive)
+ *   R (Rejected) → 1 = Red    (negative)
+ */
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+  typeName:       'Leave Request',
+  typeNamePlural: 'Leave Requests',
+  title:          { type: #FIELD, value: 'LeaveId' },
+  description:    { type: #FIELD, value: 'EmployeeName' }
+}
+
+@UI.presentationVariant: [{
+  sortOrder:      [{ by: 'StartDate', direction: #DESC }],
+  visualizations: [{ type: #AS_LINEITEM }]
+}]
+
+annotate view ZLVTRK_C_Leave with
+{
+  /* ── Object Page facet layout ────────────────────────────────── */
+  @UI.facet: [
+    {
+      id:              'GeneralInfo',
+      purpose:         #STANDARD,
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'GeneralInfo',
+      label:           'General Information',
+      position:        10
+    },
+    {
+      id:              'AdminData',
+      purpose:         #STANDARD,
+      type:            #FIELDGROUP_REFERENCE,
+      targetQualifier: 'AdminData',
+      label:           'Administrative Data',
+      position:        20
+    }
+  ]
+
+  /* ── LeaveId ─────────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 10, label: 'Leave ID' }]
+  @UI.identification:[{ position: 10, label: 'Leave ID' }]
+  LeaveId;
+
+  /* ── EmployeeName ────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 20, label: 'Employee Name' }]
+  @UI.selectionField:[{ position: 10 }]
+  @UI.identification:[{ position: 20 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 10, label: 'Employee Name' }]
+  EmployeeName;
+
+  /* ── LeaveType ───────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 30, label: 'Leave Type' }]
+  @UI.selectionField:[{ position: 20 }]
+  @UI.identification:[{ position: 30 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 20, label: 'Leave Type' }]
+  LeaveType;
+
+  /* ── StartDate ───────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 40, label: 'Start Date' }]
+  @UI.selectionField:[{ position: 30 }]
+  @UI.identification:[{ position: 40 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 30, label: 'Start Date' }]
+  StartDate;
+
+  /* ── EndDate ─────────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 50, label: 'End Date' }]
+  @UI.identification:[{ position: 50 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 40, label: 'End Date' }]
+  EndDate;
+
+  /* ── NumDays ─────────────────────────────────────────────────── */
+  @UI.lineItem:      [{ position: 60, label: 'Days' }]
+  @UI.identification:[{ position: 60 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 50, label: 'Days' }]
+  NumDays;
+
+  /* ── Reason ──────────────────────────────────────────────────── */
+  @UI.identification:[{ position: 70 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 60, label: 'Reason' }]
+  Reason;
+
+  /* ── Status (with criticality colouring) ────────────────────── */
+  @UI.lineItem: [{
+    position:                  70,
+    label:                     'Status',
+    criticality:               'StatusCriticality',
+    criticalityRepresentation: #WITH_ICON
+  }]
+  @UI.selectionField:[{ position: 40 }]
+  @UI.identification:[{
+    position:                  80,
+    criticality:               'StatusCriticality',
+    criticalityRepresentation: #WITH_ICON
+  }]
+  @UI.dataPoint: { title: 'Status', criticality: 'StatusCriticality' }
+  Status;
+
+  /* ── Administrative Data (read-only on Object Page) ─────────── */
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 10, label: 'Created By' }]
+  CreatedBy;
+
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 20, label: 'Created At' }]
+  CreatedAt;
+
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 30, label: 'Last Changed By' }]
+  LastChangedBy;
+
+  @UI.fieldGroup: [{ qualifier: 'AdminData', position: 40, label: 'Last Changed At' }]
+  LastChangedAt;
+}

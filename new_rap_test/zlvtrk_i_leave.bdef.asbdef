@@ -1,0 +1,75 @@
+/*
+ * Behavior Definition — ZLVTRK_I_Leave (Interface / BO layer)
+ *
+ * managed    — RAP framework handles all CRUD persistence automatically
+ *              (INSERT/UPDATE/DELETE into zlvtrk_d_leave).
+ * with draft — enables draft-based editing: users can pause and resume
+ *              edits; draft rows are stored in zlvtrk_d_leave_d.
+ * strict (2) — recommended strict mode for ABAP Cloud development.
+ *
+ * No custom validations, actions, or determinations — kept minimal
+ * for demo purposes (BTP Cloud Trial, single-entity BO).
+ *
+ * Activation sequence in ADT Eclipse:
+ *   1. Activate both DB tables (zlvtrk_d_leave, zlvtrk_d_leave_d).
+ *   2. Activate interface CDS view (ZLVTRK_I_Leave).
+ *   3. Activate THIS behavior definition.
+ *   4. Activate consumption CDS view (ZLVTRK_C_Leave).
+ *   5. Activate projection behavior definition (ZLVTRK_C_Leave BDEF).
+ *   6. Activate metadata extension (ZLVTRK_C_Leave DDLX).
+ *   7. Activate service definition and create service binding.
+ */
+managed implementation in class zbp_zlvtrk_i_leave unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZLVTRK_I_Leave alias Leave
+  persistent table zlvtrk_d_leave
+  draft table     zlvtrk_d_leave_d
+  lock master total etag LastChangedAt
+  authorization master ( global )
+  etag master LastChangedAt
+{
+  /* ── Field controls ──────────────────────────────────────────── */
+  field ( readonly )
+    LeaveId,              // key — set on create by numbering
+    StatusCriticality,    // computed in CDS, never editable
+    CreatedBy,
+    CreatedAt,
+    LastChangedBy,
+    LastChangedAt;
+
+  field ( mandatory : create )
+    EmployeeName,
+    LeaveType,
+    StartDate;
+
+  /* ── Standard CRUD operations ────────────────────────────────── */
+  create;
+  update;
+  delete;
+
+  /* ── Draft lifecycle actions (framework-generated) ───────────── */
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  /* ── Field-to-DB column mapping ──────────────────────────────── */
+  mapping for zlvtrk_d_leave corresponding
+  {
+    LeaveId       = leave_id;
+    EmployeeName  = employee_name;
+    LeaveType     = leave_type;
+    StartDate     = start_date;
+    EndDate       = end_date;
+    NumDays       = num_days;
+    Reason        = reason;
+    Status        = status;
+    CreatedBy     = created_by;
+    CreatedAt     = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+  }
+}
