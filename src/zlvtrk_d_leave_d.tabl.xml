@@ -7,7 +7,6 @@
     <DDLANGUAGE>E</DDLANGUAGE>
     <TABCLASS>TRANSP</TABCLASS>
     <CLIDEP>X</CLIDEP>
-    <LANGDEP>X</LANGDEP>
     <DDTEXT>Leave Tracker - RAP Draft Table</DDTEXT>
     <MASTERLANG>E</MASTERLANG>
     <CONTFLAG>A</CONTFLAG>
@@ -21,6 +20,32 @@
     <BUFALLOW>N</BUFALLOW>
    </DD09L>
    <DD03P_TABLE>
+    <!--
+      RAP DRAFT TABLE FIELD NAMING RULE
+      ==================================
+      Draft table fields must use the CDS VIEW ALIAS names (PascalCase,
+      no underscores), NOT the DB column names of the active table.
+      The RAP framework maps active table ↔ draft table via the BDEF
+      mapping block using CDS alias names as the draft-side key.
+
+      Active table ZLVTRK_D_LEAVE  →  Draft table ZLVTRK_D_LEAVE_D
+      ─────────────────────────────────────────────────────────────
+      leave_id        (DB)          →  LEAVEID         (CDS alias)
+      employee_name   (DB)          →  EMPLOYEENAME    (CDS alias)
+      leave_type      (DB)          →  LEAVECATEGORY   (CDS alias – renamed to avoid EDM conflict)
+      start_date      (DB)          →  STARTDATE       (CDS alias)
+      end_date        (DB)          →  ENDDATE         (CDS alias)
+      num_days        (DB)          →  NUMDAYS         (CDS alias)
+      reason          (DB)          →  REASON          (unchanged)
+      status          (DB)          →  STATUS          (unchanged)
+      (computed CASE) (no DB col)   →  STATUSCRITICALITY (INT4 – stored by framework)
+      created_by      (DB)          →  CREATEDBY       (CDS alias)
+      created_at      (DB)          →  CREATEDAT       (CDS alias)
+      last_changed_by (DB)          →  LASTCHANGEDBY   (CDS alias)
+      last_changed_at (DB)          →  LASTCHANGEDAT   (CDS alias)
+    -->
+
+    <!-- KEY: Client (always pos 1) -->
     <DD03P>
      <FIELDNAME>MANDT</FIELDNAME>
      <KEYFLAG>X</KEYFLAG>
@@ -29,8 +54,10 @@
      <NOTNULL>X</NOTNULL>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
+
+    <!-- KEY: Leave Request ID – must match CDS alias 'LeaveId' → LEAVEID (pos 2) -->
     <DD03P>
-     <FIELDNAME>LEAVE_ID</FIELDNAME>
+     <FIELDNAME>LEAVEID</FIELDNAME>
      <KEYFLAG>X</KEYFLAG>
      <ADMINFIELD>0</ADMINFIELD>
      <INTTYPE>C</INTTYPE>
@@ -39,54 +66,72 @@
      <DATATYPE>CHAR</DATATYPE>
      <LENG>000010</LENG>
      <MASK>  CHAR</MASK>
+     <DDTEXT>Leave Request ID</DDTEXT>
     </DD03P>
+
+    <!-- CDS alias: EmployeeName -->
     <DD03P>
-     <FIELDNAME>EMPLOYEE_NAME</FIELDNAME>
+     <FIELDNAME>EMPLOYEENAME</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <INTTYPE>C</INTTYPE>
      <INTLEN>000120</INTLEN>
      <DATATYPE>CHAR</DATATYPE>
      <LENG>000060</LENG>
      <MASK>  CHAR</MASK>
+     <DDTEXT>Employee Full Name</DDTEXT>
     </DD03P>
+
+    <!-- CDS alias: LeaveCategory (DB col leave_type renamed to avoid OData EDM clash with entity type LeaveType) -->
     <DD03P>
-     <FIELDNAME>LEAVE_TYPE</FIELDNAME>
+     <FIELDNAME>LEAVECATEGORY</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <INTTYPE>C</INTTYPE>
      <INTLEN>000040</INTLEN>
      <DATATYPE>CHAR</DATATYPE>
      <LENG>000020</LENG>
      <MASK>  CHAR</MASK>
+     <DDTEXT>Leave Type (Annual/Sick/Personal/Other)</DDTEXT>
     </DD03P>
+
+    <!-- CDS alias: StartDate -->
     <DD03P>
-     <FIELDNAME>START_DATE</FIELDNAME>
+     <FIELDNAME>STARTDATE</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <INTTYPE>D</INTTYPE>
      <INTLEN>000016</INTLEN>
      <DATATYPE>DATS</DATATYPE>
      <LENG>000008</LENG>
      <MASK>  DATS</MASK>
+     <DDTEXT>Leave Start Date</DDTEXT>
      <SHLPORIGIN>T</SHLPORIGIN>
     </DD03P>
+
+    <!-- CDS alias: EndDate -->
     <DD03P>
-     <FIELDNAME>END_DATE</FIELDNAME>
+     <FIELDNAME>ENDDATE</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <INTTYPE>D</INTTYPE>
      <INTLEN>000016</INTLEN>
      <DATATYPE>DATS</DATATYPE>
      <LENG>000008</LENG>
      <MASK>  DATS</MASK>
+     <DDTEXT>Leave End Date</DDTEXT>
      <SHLPORIGIN>T</SHLPORIGIN>
     </DD03P>
+
+    <!-- CDS alias: NumDays -->
     <DD03P>
-     <FIELDNAME>NUM_DAYS</FIELDNAME>
+     <FIELDNAME>NUMDAYS</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <INTTYPE>I</INTTYPE>
      <INTLEN>000004</INTLEN>
      <DATATYPE>INT4</DATATYPE>
      <LENG>000010</LENG>
      <MASK>  INT4</MASK>
+     <DDTEXT>Number of Leave Days</DDTEXT>
     </DD03P>
+
+    <!-- CDS alias: Reason (no rename needed) -->
     <DD03P>
      <FIELDNAME>REASON</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
@@ -95,7 +140,10 @@
      <DATATYPE>CHAR</DATATYPE>
      <LENG>000255</LENG>
      <MASK>  CHAR</MASK>
+     <DDTEXT>Leave Reason Text</DDTEXT>
     </DD03P>
+
+    <!-- CDS alias: Status (no rename needed) -->
     <DD03P>
      <FIELDNAME>STATUS</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
@@ -104,31 +152,58 @@
      <DATATYPE>CHAR</DATATYPE>
      <LENG>000001</LENG>
      <MASK>  CHAR</MASK>
+     <DDTEXT>Leave Status (N=New A=Approved R=Rejected)</DDTEXT>
     </DD03P>
+
+    <!-- CDS alias: StatusCriticality – computed CASE expression in ZLVTRK_I_Leave.
+         RAP framework stores ALL CDS view fields in the draft table, including
+         computed ones. The active-table mapping block excludes this field
+         (no DB column on the active side), but the draft table must hold it.
+         Type INT4 – mirrors the integer result of the CDS CASE expression. -->
     <DD03P>
-     <FIELDNAME>CREATED_BY</FIELDNAME>
+     <FIELDNAME>STATUSCRITICALITY</FIELDNAME>
+     <ADMINFIELD>0</ADMINFIELD>
+     <INTTYPE>I</INTTYPE>
+     <INTLEN>000004</INTLEN>
+     <DATATYPE>INT4</DATATYPE>
+     <LENG>000010</LENG>
+     <MASK>  INT4</MASK>
+     <DDTEXT>Status Criticality (0=Grey 1=Red 3=Green, computed)</DDTEXT>
+    </DD03P>
+
+    <!-- CDS alias: CreatedBy -->
+    <DD03P>
+     <FIELDNAME>CREATEDBY</FIELDNAME>
      <ROLLNAME>SYUNAME</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
+
+    <!-- CDS alias: CreatedAt -->
     <DD03P>
-     <FIELDNAME>CREATED_AT</FIELDNAME>
+     <FIELDNAME>CREATEDAT</FIELDNAME>
      <ROLLNAME>TIMESTAMPL</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
+
+    <!-- CDS alias: LastChangedBy -->
     <DD03P>
-     <FIELDNAME>LAST_CHANGED_BY</FIELDNAME>
+     <FIELDNAME>LASTCHANGEDBY</FIELDNAME>
      <ROLLNAME>SYUNAME</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
+
+    <!-- CDS alias: LastChangedAt -->
     <DD03P>
-     <FIELDNAME>LAST_CHANGED_AT</FIELDNAME>
+     <FIELDNAME>LASTCHANGEDAT</FIELDNAME>
      <ROLLNAME>TIMESTAMPL</ROLLNAME>
      <ADMINFIELD>0</ADMINFIELD>
      <COMPTYPE>E</COMPTYPE>
     </DD03P>
+
+    <!-- Mandatory RAP draft administration include (always last) -->
     <DD03P>
      <FIELDNAME>.INCLUDE</FIELDNAME>
      <ADMINFIELD>0</ADMINFIELD>
@@ -138,6 +213,7 @@
      <COMPTYPE>S</COMPTYPE>
      <GROUPNAME>%ADMIN</GROUPNAME>
     </DD03P>
+
    </DD03P_TABLE>
    <TABL_EXTRAS>
     <TDDAT>
