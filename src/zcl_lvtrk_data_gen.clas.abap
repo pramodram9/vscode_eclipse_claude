@@ -32,7 +32,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
 
     "── Step 1: Delete existing LV* records (makes class re-runnable) ────────
     DELETE FROM zlvtrk_d_leave
-      WHERE leave_id BETWEEN @( 'LV0000001' ) AND @( 'LV0000008' ).
+      WHERE leave_id BETWEEN @( 'LV00000001' ) AND @( 'LV00000008' ).
     DATA(lv_deleted) = sy-dbcnt.
     out->write( |  [1/3] DELETE → { lv_deleted } existing record(s) removed.| ).
 
@@ -65,7 +65,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
     rt_leave = VALUE #(
 
       "── 1 ─ Annual / Approved ──────────────────────────────────────────────
-      ( leave_id        = 'LV0000001'
+      ( leave_id        = 'LV00000001'
         employee_name   = 'Alice Johnson'
         leave_type      = 'Annual'
         start_date      = '20250601'
@@ -77,7 +77,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
         last_changed_by = lv_user   last_changed_at = lv_ts )
 
       "── 2 ─ Sick / Approved ────────────────────────────────────────────────
-      ( leave_id        = 'LV0000002'
+      ( leave_id        = 'LV00000002'
         employee_name   = 'Bob Martinez'
         leave_type      = 'Sick'
         start_date      = '20250715'
@@ -89,7 +89,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
         last_changed_by = lv_user   last_changed_at = lv_ts )
 
       "── 3 ─ Personal / Rejected ────────────────────────────────────────────
-      ( leave_id        = 'LV0000003'
+      ( leave_id        = 'LV00000003'
         employee_name   = 'Carol White'
         leave_type      = 'Personal'
         start_date      = '20250901'
@@ -101,7 +101,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
         last_changed_by = lv_user   last_changed_at = lv_ts )
 
       "── 4 ─ Annual / New ───────────────────────────────────────────────────
-      ( leave_id        = 'LV0000004'
+      ( leave_id        = 'LV00000004'
         employee_name   = 'David Lee'
         leave_type      = 'Annual'
         start_date      = '20251001'
@@ -113,7 +113,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
         last_changed_by = lv_user   last_changed_at = lv_ts )
 
       "── 5 ─ Other / New ────────────────────────────────────────────────────
-      ( leave_id        = 'LV0000005'
+      ( leave_id        = 'LV00000005'
         employee_name   = 'Emma Davis'
         leave_type      = 'Other'
         start_date      = '20251120'
@@ -125,7 +125,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
         last_changed_by = lv_user   last_changed_at = lv_ts )
 
       "── 6 ─ Sick / Approved ────────────────────────────────────────────────
-      ( leave_id        = 'LV0000006'
+      ( leave_id        = 'LV00000006'
         employee_name   = 'Frank Wilson'
         leave_type      = 'Sick'
         start_date      = '20260105'
@@ -137,7 +137,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
         last_changed_by = lv_user   last_changed_at = lv_ts )
 
       "── 7 ─ Annual / Rejected ──────────────────────────────────────────────
-      ( leave_id        = 'LV0000007'
+      ( leave_id        = 'LV00000007'
         employee_name   = 'Grace Taylor'
         leave_type      = 'Annual'
         start_date      = '20260301'
@@ -149,7 +149,7 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
         last_changed_by = lv_user   last_changed_at = lv_ts )
 
       "── 8 ─ Personal / New ─────────────────────────────────────────────────
-      ( leave_id        = 'LV0000008'
+      ( leave_id        = 'LV00000008'
         employee_name   = 'Henry Brown'
         leave_type      = 'Personal'
         start_date      = '20260415'
@@ -194,18 +194,18 @@ CLASS zcl_lvtrk_data_gen IMPLEMENTATION.
 
     io_out->write( lv_sep ).
 
-    "── Totals by status ──────────────────────────────────────────────────────
-    DATA(lv_new)      = lines( FILTER #( it_leave WHERE status = 'N' ) ).
-    DATA(lv_approved) = lines( FILTER #( it_leave WHERE status = 'A' ) ).
-    DATA(lv_rejected) = lines( FILTER #( it_leave WHERE status = 'R' ) ).
+    "── Totals by status (Rule 2: REDUCE on WITH EMPTY KEY standard table) ───
+    DATA(lv_new)      = REDUCE i( INIT c = 0 FOR ls IN it_leave WHERE ( status = 'N' ) NEXT c = c + 1 ).
+    DATA(lv_approved) = REDUCE i( INIT c = 0 FOR ls IN it_leave WHERE ( status = 'A' ) NEXT c = c + 1 ).
+    DATA(lv_rejected) = REDUCE i( INIT c = 0 FOR ls IN it_leave WHERE ( status = 'R' ) NEXT c = c + 1 ).
 
     io_out->write( | STATUS TOTALS:  New: { lv_new }   Approved: { lv_approved }   Rejected: { lv_rejected }| ).
 
     "── Totals by leave type ──────────────────────────────────────────────────
-    DATA(lv_annual)   = lines( FILTER #( it_leave WHERE leave_type = 'Annual'   ) ).
-    DATA(lv_sick)     = lines( FILTER #( it_leave WHERE leave_type = 'Sick'     ) ).
-    DATA(lv_personal) = lines( FILTER #( it_leave WHERE leave_type = 'Personal' ) ).
-    DATA(lv_other)    = lines( FILTER #( it_leave WHERE leave_type = 'Other'    ) ).
+    DATA(lv_annual)   = REDUCE i( INIT c = 0 FOR ls IN it_leave WHERE ( leave_type = 'Annual'   ) NEXT c = c + 1 ).
+    DATA(lv_sick)     = REDUCE i( INIT c = 0 FOR ls IN it_leave WHERE ( leave_type = 'Sick'     ) NEXT c = c + 1 ).
+    DATA(lv_personal) = REDUCE i( INIT c = 0 FOR ls IN it_leave WHERE ( leave_type = 'Personal' ) NEXT c = c + 1 ).
+    DATA(lv_other)    = REDUCE i( INIT c = 0 FOR ls IN it_leave WHERE ( leave_type = 'Other'    ) NEXT c = c + 1 ).
 
     io_out->write( | TYPE  TOTALS:   Annual: { lv_annual }   Sick: { lv_sick }   Personal: { lv_personal }   Other: { lv_other }| ).
     io_out->write( lv_sep_hdr ).
