@@ -109,7 +109,7 @@ annotate view ZLVTRK_C_Leave with
     criticality:               'StatusCriticality',
     criticalityRepresentation: #WITH_ICON
   }]
-  @UI.dataPoint: { title: 'Status', criticality: 'StatusCriticality' }
+  @UI.dataPoint: { title: 'Status', criticality: 'StatusCriticality', criticalityRepresentation: #WITH_ICON }
   Status;
 
   /* ── Administrative Data (read-only on Object Page) ─────────── */

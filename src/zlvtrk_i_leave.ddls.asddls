@@ -1,3 +1,4 @@
+@AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Leave Tracker - Interface (Root BO) View'
 @ObjectModel.usageType: {
