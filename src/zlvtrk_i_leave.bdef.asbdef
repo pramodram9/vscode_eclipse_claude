@@ -40,11 +40,6 @@ define behavior for ZLVTRK_I_Leave alias Leave
     LastChangedBy,
     LastChangedAt;
 
-  field ( mandatory : create )
-    EmployeeName,
-    LeaveCategory,
-    StartDate;
-
   /* ── Standard CRUD operations ────────────────────────────────── */
   create;
   update;
