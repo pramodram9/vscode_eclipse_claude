@@ -970,8 +970,8 @@ See Section 14.1 for the full ordered activation table.
 
 | # | Item | Priority | Resolution |
 |---|------|----------|-----------|
-| OI-01 | `LEAVE_ID` key generation — currently `field(readonly)` with no determination; new records need a manually provided ID | High | Implement `determination setLeaveId on modify { create; }` using `cl_system_uuid` or custom number range |
-| OI-02 | `STATUS` initial value — not defaulted to `'N'` on create | High | Implement `determination setInitialStatus on modify { create; }` |
+| OI-01 | ~~`LEAVE_ID` key generation — no determination~~  | ~~High~~ | **CLOSED v2.0** — `earlynumbering_create` implemented in `lhc_leave` (CCIMP); generates `LVnnnnnnnn` 10-char keys |
+| OI-02 | ~~`STATUS` initial value — not defaulted to `'N'` on create~~ | ~~High~~ | **CLOSED v2.0** — `determination setInitialStatus` implemented in `lhc_leave` (CCIMP) |
 | OI-03 | No validations on `STATUS` value domain (only N/A/R allowed) | Medium | Implement `validation validateStatus` |
 | OI-04 | No validation that `END_DATE >= START_DATE` | Medium | Implement `validation validateDates` |
 | OI-05 | `@AccessControl.authorizationCheck: #NOT_REQUIRED` | High (before go-live) | Create DCLS, IAM App, Business Catalog, Business Role |
@@ -979,7 +979,7 @@ See Section 14.1 for the full ordered activation table.
 | OI-07 | `LeaveType` is free text — no controlled vocabulary | Low | Add a fixed-value domain or lookup entity in a later release |
 | OI-08 | No Approve / Reject actions on the UI | Medium | Add `action approveLeave` and `action rejectLeave` to BDEF + expose in projection |
 | OI-09 | No secondary indexes defined | Low | Add when dataset exceeds ~10,000 rows |
-| OI-10 | Behaviour implementation class `ZBP_ZLVTRK_I_Leave` not in abapGit | Low | Create manually in ADT; add to abapGit package once methods are implemented |
+| OI-10 | ~~Behaviour implementation class `ZBP_ZLVTRK_I_Leave` not in abapGit~~ | ~~Low~~ | **CLOSED v2.0** — class + CCIMP locals_imp fully generated and included in abapGit |
 
 ---
 
@@ -991,5 +991,6 @@ See Section 14.1 for the full ordered activation table.
 |---------|------|--------|
 | 1.0 | April 2026 | Initial release — all 6 RAP artifacts documented |
 | 1.1 | April 2026 | Added `ZCL_LVTRK_DATA_GEN` to naming registry (§3.2), abapGit file layout (§14.2), and new testing subsection §15.3 |
+| 2.0 | April 2026 | Full re-generation per Section 5 TSD standards: closed OI-01/OI-02/OI-10 (early numbering + setInitialStatus + abapGit class); fixed Rule 2 FILTER→REDUCE in data gen; fixed LEAVE_ID to 10-char format; added `@AbapCatalog.viewEnhancementCategory: [#NONE]`; added `criticalityRepresentation: #WITH_ICON` to `@UI.dataPoint` |
 
-*End of Technical Specification Document — TSD-ZLVTRK-001 v1.1*
+*End of Technical Specification Document — TSD-ZLVTRK-001 v2.0*
