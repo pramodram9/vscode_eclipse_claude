@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_DDLX" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <DD43V>
+    <VIEWNAME>ZLVTRK_C_LEAVE_V1</VIEWNAME>
+    <AS4LOCAL>A</AS4LOCAL>
+    <DESCRIPTION>Leave Tracker - Metadata Extension V1</DESCRIPTION>
+   </DD43V>
+  </asx:values>
+ </asx:abap>
+</abapGit>

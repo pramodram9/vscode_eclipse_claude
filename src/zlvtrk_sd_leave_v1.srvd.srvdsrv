@@ -1,0 +1,4 @@
+@EndUserText.label: 'Leave Tracker - Service Definition V1'
+define service ZLVTRK_SD_Leave_V1 {
+  expose ZLVTRK_C_Leave_V1 as Leave;
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SRVB" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SRVB_HEAD>
+    <BINDINGNAME>ZLVTRK_SB_LEAVE_V1_V4</BINDINGNAME>
+    <DEFINITION>ZLVTRK_SD_LEAVE_V1</DEFINITION>
+    <CATEGORY>ODATA</CATEGORY>
+    <PROTOCOL>V4</PROTOCOL>
+    <DESCRIPTION>Leave Tracker - OData V4 Service Binding V1</DESCRIPTION>
+   </SRVB_HEAD>
+  </asx:values>
+ </asx:abap>
+</abapGit>

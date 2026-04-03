@@ -1,0 +1,50 @@
+managed implementation in class ZBP_ZLVTRK_I_LEAVE_V1 unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZLVTRK_I_Leave_V1 alias Leave
+  persistent table zlvtrk_d_leave_v1
+  draft table zlvtrk_d_leave_v1_d
+  etag master LastChangedAt
+  lock master total etag LastChangedAt
+  authorization master ( global )
+  early numbering
+{
+  create;
+  update;
+  delete;
+
+  //-- Key and computed fields are always read-only
+  field ( readonly ) LeaveId;
+  field ( readonly ) StatusCriticality;
+
+  //-- Admin fields set by @Semantics framework annotations
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt;
+
+  //-- Rule 3: NO mandatory:create — use validation instead
+  //-- Determination sets Status = 'N' on creation
+  determination setInitialStatus on modify { create; }
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zlvtrk_d_leave_v1 corresponding
+  {
+    LeaveId       = leave_id;
+    EmployeeName  = employee_name;
+    LeaveCategory = leave_type;
+    StartDate     = start_date;
+    EndDate       = end_date;
+    NumDays       = num_days;
+    Reason        = reason;
+    Status        = status;
+    CreatedBy     = created_by;
+    CreatedAt     = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    //-- StatusCriticality is computed — no active-table column, omitted from mapping
+  }
+}

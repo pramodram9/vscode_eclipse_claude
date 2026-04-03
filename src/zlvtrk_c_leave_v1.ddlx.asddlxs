@@ -1,0 +1,101 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+  typeName:       'Leave Request',
+  typeNamePlural: 'Leave Requests',
+  title:          { type: #STANDARD, value: 'LeaveId' },
+  description:    { type: #STANDARD, value: 'EmployeeName' }
+}
+
+@UI.presentationVariant: [{
+  sortOrder:      [{ by: 'StartDate', direction: #DESC }],
+  visualizations: [{ type: #AS_LINEITEM }]
+}]
+
+@UI.facet: [
+  {
+    id:              'StatusDP',
+    purpose:         #HEADER,
+    type:            #DATAPOINT_REFERENCE,
+    label:           'Status',
+    targetQualifier: 'StatusDP'
+  },
+  {
+    id:              'GeneralInfo',
+    type:            #FIELDGROUP_REFERENCE,
+    label:           'General Information',
+    targetQualifier: 'GeneralInfo'
+  },
+  {
+    id:              'AdminInfo',
+    type:            #FIELDGROUP_REFERENCE,
+    label:           'Administrative Data',
+    targetQualifier: 'AdminInfo'
+  }
+]
+
+annotate view ZLVTRK_C_Leave_V1
+  with
+{
+  @UI.lineItem:      [{ position: 10, label: 'Leave ID' }]
+  @UI.identification:[{ position: 10 }]
+  LeaveId;
+
+  @UI.lineItem:      [{ position: 20, label: 'Employee Name' }]
+  @UI.selectionField:[{ position: 10 }]
+  @UI.identification:[{ position: 20 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 10, label: 'Employee Name' }]
+  EmployeeName;
+
+  @UI.lineItem:      [{ position: 30, label: 'Leave Category' }]
+  @UI.selectionField:[{ position: 20 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 20, label: 'Leave Category' }]
+  LeaveCategory;
+
+  @UI.lineItem:      [{ position: 40, label: 'Start Date' }]
+  @UI.selectionField:[{ position: 30 }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 30, label: 'Start Date' }]
+  StartDate;
+
+  @UI.lineItem:      [{ position: 50, label: 'End Date' }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 40, label: 'End Date' }]
+  EndDate;
+
+  @UI.lineItem:      [{ position: 60, label: 'Days' }]
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 50, label: 'Number of Days' }]
+  NumDays;
+
+  @UI.fieldGroup:    [{ qualifier: 'GeneralInfo', position: 60, label: 'Reason' }]
+  Reason;
+
+  @UI.lineItem: [{
+    position:                 70,
+    label:                    'Status',
+    criticality:              'StatusCriticality',
+    criticalityRepresentation:#WITH_ICON
+  }]
+  @UI.selectionField:[{ position: 40 }]
+  @UI.dataPoint: {
+    qualifier:                'StatusDP',
+    title:                    'Status',
+    criticality:              'StatusCriticality',
+    criticalityRepresentation:#WITH_ICON
+  }
+  Status;
+
+  //-- StatusCriticality is a computed helper field — hidden from UI
+  @UI.hidden: true
+  StatusCriticality;
+
+  @UI.fieldGroup:[{ qualifier: 'AdminInfo', position: 10, label: 'Created By' }]
+  CreatedBy;
+
+  @UI.fieldGroup:[{ qualifier: 'AdminInfo', position: 20, label: 'Created At' }]
+  CreatedAt;
+
+  @UI.fieldGroup:[{ qualifier: 'AdminInfo', position: 30, label: 'Changed By' }]
+  LastChangedBy;
+
+  @UI.fieldGroup:[{ qualifier: 'AdminInfo', position: 40, label: 'Changed At' }]
+  LastChangedAt;
+}
